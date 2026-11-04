@@ -1,0 +1,16 @@
+error: this file has 501 lines, over the limit of 500
+  --> $DIR/file_too_long.rs:501:1
+   |
+LL | fn last_line_without_a_newline() {}
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: split the file only into private child modules of that file
+   = help: open each child module with a `//!` line naming its one concern
+   = help: move an inline `#[cfg(test)]` module to its own file first, when one exists
+   = help: reach the parent's private items through `super::`, and give a moved item `pub(super)` only where the parent uses it
+   = help: never widen anything to `pub(crate)` or `pub` to make a split compile
+   = note: if no cohesive group splits out without widening visibility, stop and say why
+   = note: `#[deny(file_too_long)]` on by default
+
+error: aborting due to 1 previous error
+

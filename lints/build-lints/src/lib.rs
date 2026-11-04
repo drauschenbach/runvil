@@ -19,7 +19,9 @@ extern crate rustc_hir;
 extern crate rustc_lint;
 extern crate rustc_middle;
 extern crate rustc_session;
+extern crate rustc_span;
 
+mod file_too_long;
 mod io_try_without_context;
 
 dylint_linting::dylint_library!();
@@ -28,7 +30,11 @@ dylint_linting::dylint_library!();
 #[unsafe(no_mangle)]
 pub fn register_lints(sess: &rustc_session::Session, lint_store: &mut rustc_lint::LintStore) {
     dylint_linting::init_config(sess);
-    lint_store.register_lints(&[io_try_without_context::IO_TRY_WITHOUT_CONTEXT]);
+    lint_store.register_lints(&[
+        file_too_long::FILE_TOO_LONG,
+        io_try_without_context::IO_TRY_WITHOUT_CONTEXT,
+    ]);
+    lint_store.register_late_lint_pass(Box::new(|_| Box::new(file_too_long::FileTooLong)));
     lint_store.register_late_lint_pass(Box::new(|_| {
         Box::new(io_try_without_context::IoTryWithoutContext)
     }));

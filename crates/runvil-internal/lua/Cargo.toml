@@ -31,8 +31,6 @@ name = "surface"
 harness = false
 required-features = ["test-support"]
 
-[build-dependencies]
-build-ceiling.workspace = true
 
 [lints]
 workspace = true
